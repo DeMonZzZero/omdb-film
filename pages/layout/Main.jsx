@@ -1,28 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Movies from '../../components/Movies';
 import Search from '../../components/Search';
 import Movie from '../../components/Movie';
 
-export default function Main() {
-    const [show, setShow] = useState('index');
-    const [movies, setMovies] = useState([]);
-    const [movie, setMovie] = useState({});
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch('http://www.omdbapi.com/?apikey=a2b07930&s=')
-            .then(response => response.json())
-            .then(data => {
-                setMovies(data.Search ? data.Search : []);
-                setLoading(false);
-            });
-    }, []); 
+export default class Main extends React.Component {
+    state = {
+        show: 'index', 
+        movies: [], 
+        movie: {}, 
+        loading: true, 
+    }
 
     
-    const handleEnter = (search, type) => {
+    handleEnter = (search, type) => {
         if (search.trim() === "") return;
-        setLoading(true);
-        setShow('search');
+        this.setState({
+            loading: true,
+            show: 'search'
+        });
         search = encodeURIComponent(search);
         let url = `http://www.omdbapi.com/?apikey=a2b07930&s=${search}`;
         if (type !== 'all') {
@@ -31,37 +26,61 @@ export default function Main() {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                setMovies(data.Search ? data.Search : []);
-                setLoading(false);
+                this.setState({
+                    movies: data.Search ? data.Search : [], 
+                    loading: false
+                });
             });
     }
 
-   
-    const handleReadMore = (id) => {
-        setLoading(true);
-        setShow('movie');
+    
+    handleReadMore = (id) => {
+        this.setState({
+            loading: true,
+            show: 'movie'
+        });
         fetch(`http://www.omdbapi.com/?apikey=a2b07930&i=${id}&plot=full`)
             .then(response => response.json())
             .then(data => {
-                setMovie(data.Title ? data : {});
-                setLoading(false);
+                this.setState({
+                    movie: data.Title ? data : {},
+                    loading: false
+                });
             });
     }
 
-    return (
-        <main className="container">
-            <Search enterHandler={handleEnter} />
-            { show === 'movie' ? (
-                <Movie {...movie} />
-            ) : (
-                <Movies
-                    movies={movies}
-                    readMoreHandler={handleReadMore}
-                />
-            )}
-        </main>
-    );
+    componentDidMount() {
+        fetch('http://www.omdbapi.com/?apikey=a2b07930&s=red')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    movies: data.Search ? data.Search : [],
+                    loading: false
+                });
+            });
+    }
+
+    render() {
+        return (
+            <main className="container">
+                <Search enterHandler={this.handleEnter} />
+                {
+                    this.state.loading ? (
+                        <div className="loader">Загрузка...</div>
+                    ) : this.state.show === 'movie' ? (
+                        <Movie {...this.state.movie} />
+                    ) : (
+                        <Movies
+                            movies={this.state.movies}
+                            readMoreHandler={this.handleReadMore}
+                        />
+                    )
+                }
+            </main>
+        );
+    }
 }
+
 
 
 
