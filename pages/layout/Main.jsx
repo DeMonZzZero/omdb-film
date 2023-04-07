@@ -10,7 +10,7 @@ export default function Main() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://www.omdbapi.com/?apikey=5f29dc7d&s=red')
+        fetch('http://www.omdbapi.com/?apikey=a2b07930&s=')
             .then(response => response.json())
             .then(data => {
                 setMovies(data.Search ? data.Search : []);
@@ -24,7 +24,7 @@ export default function Main() {
         setLoading(true);
         setShow('search');
         search = encodeURIComponent(search);
-        let url = `http://www.omdbapi.com/?apikey=5f29dc7d&s=${search}`;
+        let url = `http://www.omdbapi.com/?apikey=a2b07930&s=${search}`;
         if (type !== 'all') {
             url = url + `&type=${type}`;
         }
@@ -40,7 +40,7 @@ export default function Main() {
     const handleReadMore = (id) => {
         setLoading(true);
         setShow('movie');
-        fetch(`http://www.omdbapi.com/?apikey=5f29dc7d&i=${id}&plot=full`)
+        fetch(`http://www.omdbapi.com/?apikey=a2b07930&i=${id}&plot=full`)
             .then(response => response.json())
             .then(data => {
                 setMovie(data.Title ? data : {});
