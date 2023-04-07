@@ -50,7 +50,7 @@ export default class Main extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=a2b07930&s=red')
+        fetch('http://www.omdbapi.com/?apikey=a2b07930&s=')
             .then(response => response.json())
             .then(data => {
                 this.setState({
