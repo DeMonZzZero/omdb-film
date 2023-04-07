@@ -51,9 +51,7 @@ export default function Main() {
     return (
         <main className="container">
             <Search enterHandler={handleEnter} />
-            {loading ? (
-                <div className="loader">Загрузка...</div>
-            ) : show === 'movie' ? (
+            { show === 'movie' ? (
                 <Movie {...movie} />
             ) : (
                 <Movies
