@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    padding-top: 20px;
+    flex: 1 1 auto;
+}
+.page-footer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+nav {
+    box-shadow: none;
+}
+
+.movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card .card-title {
+    font-size: 18px;
+}
+
+button {
+    position: absolute;
+    right: 10px;
+}
+
+label {
+    margin-right: 50px;
+}
+
+
+
