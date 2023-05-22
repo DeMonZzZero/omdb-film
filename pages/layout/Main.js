@@ -19,7 +19,7 @@ export default class Main extends React.Component {
             show: 'search'
         });
         search = encodeURIComponent(search);
-        let url = `http://www.omdbapi.com/?apikey=a2b07930&s=${search}`;
+        let url = `https://www.omdbapi.com/?apikey=a2b07930&s=${search}`;
         if (type !== 'all') {
             url = url + `&type=${type}`;
         }
@@ -39,7 +39,7 @@ export default class Main extends React.Component {
             loading: true,
             show: 'movie'
         });
-        fetch(`http://www.omdbapi.com/?apikey=a2b07930&i=${id}&plot=full`)
+        fetch(`https://www.omdbapi.com/?apikey=a2b07930&i=${id}&plot=full`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -50,7 +50,7 @@ export default class Main extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=a2b07930&s=')
+        fetch('https://www.omdbapi.com/?apikey=a2b07930&s=')
             .then(response => response.json())
             .then(data => {
                 this.setState({
